@@ -1,0 +1,10 @@
+﻿@model AudioController.Models.AudioModel
+
+@{
+    ViewBag.Title = "Home Audio Controller";
+}
+
+@foreach (var zone in Model.Zones)
+{
+    @Html.Partial("Zone", new AudioController.Models.ZoneAndInputs { Zone = zone, Inputs = Model.Inputs})
+}

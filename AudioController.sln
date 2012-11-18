@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioController", "AudioController\AudioController.csproj", "{CACE260F-A35B-4810-9193-9B79FE6B3E80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AE6MC", "Amplifiers\AE6MC\AE6MC.csproj", "{83CF07E4-0858-4AAD-AB1B-7B977D3F1B5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioBase", "AudioBase\AudioBase.csproj", "{D05D9064-C9F0-4143-A26A-ACED0759F7DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CACE260F-A35B-4810-9193-9B79FE6B3E80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CACE260F-A35B-4810-9193-9B79FE6B3E80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CACE260F-A35B-4810-9193-9B79FE6B3E80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CACE260F-A35B-4810-9193-9B79FE6B3E80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83CF07E4-0858-4AAD-AB1B-7B977D3F1B5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83CF07E4-0858-4AAD-AB1B-7B977D3F1B5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83CF07E4-0858-4AAD-AB1B-7B977D3F1B5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83CF07E4-0858-4AAD-AB1B-7B977D3F1B5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D05D9064-C9F0-4143-A26A-ACED0759F7DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D05D9064-C9F0-4143-A26A-ACED0759F7DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D05D9064-C9F0-4143-A26A-ACED0759F7DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D05D9064-C9F0-4143-A26A-ACED0759F7DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

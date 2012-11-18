@@ -1,0 +1,43 @@
+﻿html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    background-color: #fff;
+    color: #333;
+    font-size: .85em;
+    margin: 20px;
+    padding: 0;
+}
+
+.ha-zone .ha-zone-section label {
+    display: block;
+    height: 20px;
+}
+
+.ha-zone .ha-zone-section {
+    margin-bottom: 20px;
+}
+
+.ha-zone-slider {
+}
+
+.ha-zone-slider input {
+    width: 100%;
+}
+
+.ha-zone-value {
+    float: right;
+    margin-top: -20px;
+    text-align: right;
+}
+
+.ha-zone-value input {
+    width: 50px;
+}
+
+.ha-zone-mute {
+    float: right;
+}
