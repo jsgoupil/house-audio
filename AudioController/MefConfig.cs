@@ -1,4 +1,4 @@
-﻿using AudioController.Controllers;
+﻿using HouseAudio.AudioController.Controllers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -10,7 +10,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace AudioController
+namespace HouseAudio.AudioController
 {
     public static class MefConfig
     {

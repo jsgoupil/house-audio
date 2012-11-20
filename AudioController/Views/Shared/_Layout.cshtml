@@ -14,21 +14,11 @@
         @Scripts.Render("~/bundles/amplifier")
 
         <script>
-            Amplifier.urls = {
-                Version: { get: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Control", action = "Version" } )' },
-                Reset: { get: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Control", action = "Reset" })' },
-                On: { post: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Control", action = "On" })/__ID__' },
-                Off: { post: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Control", action = "Off" })/__ID__' },
-                Mute: { post: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Control", action = "Mute" })/__ID__' },
-                UnMute: { post: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Control", action = "UnMute" })/__ID__' },
-                MuteAll: { post: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Control", action = "MuteAll" })' },
-                UnMuteAll: { post: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Control", action = "UnMuteAll" })' },
-                Volume: { get: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Control", action = "Volume" })/__ID__', post: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Control", action = "Volume" })/__ID__?Volume=0' },
-                Bass: { get: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Control", action = "Bass" })/__ID__', post: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Control", action = "Bass" })/__ID__?Bass=0' },
-                Treble: { get: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Control", action = "Treble" })/__ID__', post: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Control", action = "Treble" })/__ID__?Treble=0' },
-                Link: { post: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Control", action = "Link" })?input.Id=__INPUTID__&zone.Id=__ZONEID__' }
+            AmplifierApi.url = {
+                Version: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Amplifier", action="Version" })',
+                Reset: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Amplifier", action="Reset" })'
             };
-
+            ZoneApi.url = '@Url.RouteUrl("ZoneApi", new { httproute = "", controller = "Zone" })';
         </script>
     </body>
 </html>

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace HomeAudio.AE6MC
+namespace HouseAudio.Amplifier.AE6MC
 {
     public static class MyExtensions
     {

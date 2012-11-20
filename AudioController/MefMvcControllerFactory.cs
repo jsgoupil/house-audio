@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.ComponentModel.Composition;
 
-namespace AudioController
+namespace HouseAudio.AudioController
 {
     class MefMvcControllerFactory : DefaultControllerFactory
     {

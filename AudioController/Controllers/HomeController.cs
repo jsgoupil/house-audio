@@ -1,5 +1,5 @@
-﻿using AudioController.Models;
-using HomeAudio.AudioBase;
+﻿using HouseAudio.AudioBase;
+using HouseAudio.AudioController.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace AudioController.Controllers
+namespace HouseAudio.AudioController.Controllers
 {
     [Export]
     [PartCreationPolicy(CreationPolicy.NonShared)]

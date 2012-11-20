@@ -6,14 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeAudio.AE6MC
+namespace HouseAudio.Amplifier.AE6MC
 {
+    /// <summary>
+    /// RS232 implementation of the ICommunication
+    /// </summary>
     [Export(typeof(ICommunication))]
     public class RS232 : ICommunication, IDisposable
     {
         private static RS232 instance;
         private SerialPort serialPort;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="portName">RS232 Port</param>
         [ImportingConstructor]
         private RS232([Import("COMport")]string portName)
         {
@@ -27,14 +34,9 @@ namespace HomeAudio.AE6MC
             serialPort.Handshake = Handshake.None;
         }
 
-        public static RS232 GetInstance(string portName) {
-            if (instance != null)
-            {
-                return instance;
-            }
-            return instance = new RS232(portName);
-        }
-
+        /// <summary>
+        /// Connects on the port.
+        /// </summary>
         public void Connect()
         {
             if (!serialPort.IsOpen)
@@ -43,11 +45,19 @@ namespace HomeAudio.AE6MC
             }
         }
 
+        /// <summary>
+        /// Disconnects.
+        /// </summary>
         public void Disconnect()
         {
             serialPort.Close();
         }
 
+        /// <summary>
+        /// Write on the port. It connects if needed.
+        /// </summary>
+        /// <param name="data">Data to write</param>
+        /// <returns>Asynchronous task.</returns>
         public Task Write(string data)
         {
             Connect();
@@ -55,12 +65,19 @@ namespace HomeAudio.AE6MC
             return Task.Delay(100);
         }
 
+        /// <summary>
+        /// Reads on the port. It connects if needed.
+        /// </summary>
+        /// <returns>Data read asynchronously.</returns>
         public Task<string> Read()
         {
             Connect();
             return serialPort.GetTextReader().ReadAsync();
         }
 
+        /// <summary>
+        /// Disposes.
+        /// </summary>
         public void Dispose()
         {
             Disconnect();

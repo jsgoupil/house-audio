@@ -1,102 +1,48 @@
 ﻿(function(global, undefined) {
-    var baseUrl = "/api/Control";
-
-    var replaceUrl = function(url, object) {
-        object = object || {};
-
-        return url
-            .replace("__ID__", object.zoneId || 0)
-            .replace("__INPUTID__", object.inputId || 0)
-            .replace("__ZONEID__", object.zoneId || 0)
-            .replace(/(Volume=)(\d*)/, "$1" + (object.volume || 0))
-            .replace(/(Bass=)(\d*)/, "$1" + (object.bass || 0))
-            .replace(/(Treble=)(\d*)/, "$1" + (object.treble || 0));
-    };
-
-    var createAjaxRequest = function(type, urlCode, object) {
-        var url;
-
-        return $.ajax(replaceUrl(urlCode[type], object), {
+    var createAjaxRequest = function(type, url) {
+        return $.ajax(url, {
             type: type.toUpperCase(),
             dataType: 'json'
         });
     };
 
-    var amplifier = new (function(baseUrl) {
+    var amplifier = new (function() {
         this.Version = function() {
-            return createAjaxRequest("get", Amplifier.urls.Version);
+            return createAjaxRequest("get", AmplifierApi.url.Version);
         };
+
         this.Reset = function() {
-            return createAjaxRequest("get", Amplifier.urls.Reset);
+            return createAjaxRequest("post", AmplifierApi.url.Reset);
         };
-        this.On = function(id) {
-            return createAjaxRequest("post", Amplifier.urls.On, { zoneId: id });
-        };
-        this.Off = function(id) {
-            return createAjaxRequest("post", Amplifier.urls.Off, { zoneId: id });
-        };
-        this.Mute = function(id) {
-            return createAjaxRequest("post", Amplifier.urls.Mute, { zoneId: id });
-        };
-        this.UnMute = function(id) {
-            return createAjaxRequest("post", Amplifier.urls.UnMute, { zoneId: id });
-        };
-        this.MuteAll = function() {
-            return createAjaxRequest("post", Amplifier.urls.MuteAll);
-        };
-        this.UnMuteAll = function() {
-            return createAjaxRequest("post", Amplifier.urls.UnMuteAll);
-        };
-        this.Volume = function(id, volume) {
-            var type = "post";
+    })();
 
-            // We want to read
-            if (typeof volume === undefined) {
-                type = "get";
-            }
-
-            return createAjaxRequest(type, Amplifier.urls.Volume, { zoneId: id, volume: volume });
+    var zone = new (function() {
+        this.get = function(zone) {
+            return createAjaxRequest("get", ZoneApi.url + "/" + zone.Id);
         };
-        this.Bass = function(id, bass) {
-            var type = "post";
 
-            // We want to read
-            if (typeof bass === undefined) {
-                type = "get";
-            }
-
-            return createAjaxRequest(type, Amplifier.urls.Bass, { zoneId: id, bass: bass });
+        this.post = function(zone) {
+            return createAjaxRequest("post", ZoneApi.url + "/" + "?" + $.param(zone));
         };
-        this.Treble = function(id, treble) {
-            var type = "post";
+    })();
 
-            // We want to read
-            if (typeof treble === undefined) {
-                type = "get";
-            }
-
-            return createAjaxRequest(type, Amplifier.urls.Treble, { zoneId: id, treble: treble });
-        };
-        this.Link = function(inputId, outputId) {
-            return createAjaxRequest("post", Amplifier.urls.Link, { inputId: inputId, zoneId: outputId });
-        };
-    })(baseUrl);
-
-    global.Amplifier = amplifier;
+    global.AmplifierApi = amplifier;
+    global.ZoneApi = zone;
 })(this);
 
 (function($, global, amp, undefined) {
-    var timers = {};
+    var timer = {};
     var timeCall = 300;
-    var callAmp = function(code, callback) {
-        if (timers[code]) {
-            global.clearTimeout(timers[code]);
-        }
 
-        timers[code] = setTimeout(function() {
-            timers[code] = null;
-            callback();
-        }, timeCall);
+    var updateZone = function(zoneId) {
+        if (!timer[zoneId]) {
+            timer[zoneId] = getZone(zoneId);
+
+            setTimeout(function() {
+                ZoneApi.post(timer[zoneId]);
+                timer[zoneId] = null;
+            }, timeCall);
+        }
     };
 
     var getZoneId = function(object) {
@@ -106,37 +52,59 @@
         return $(object).closest(".ha-zone-section").data("property") || null;
     };
 
+    var Input = function(id) {
+        this.Id = id;
+    };
+
+    var Zone = function(id) {
+        this.Id = id;
+        this.On = false;
+        this.Volume = 0;
+        this.Bass = 0;
+        this.Treble = 0;
+        this.Mute = false;
+        this.Input = null;
+    };
+
+    var getZone = function(id) {
+        var context = $("[data-zoneid=" + id + "]");
+        var input = context.find(".ha-zone-input").val();
+
+        var zone = new Zone(id);
+        zone.On = context.find(".ha-zone-onoff").is(":checked");
+        zone.Volume = context.find(".ha-zone-section[data-property=Volume] .ha-zone-value input").val();
+        zone.Bass = context.find(".ha-zone-section[data-property=Bass] .ha-zone-value input").val();
+        zone.Treble = context.find(".ha-zone-section[data-property=Treble] .ha-zone-value input").val();
+        zone.Mute = !!context.find(".ha-zone-mute").data("muted");
+        zone.Input = input !== "0" ? new Input(input) : null;
+
+        return zone;
+    };
+
     $("body")
         .on("change", ".ha-zone-slider input", function() {
             var $this = $(this),
                 val = $this.val(),
                 zoneId = getZoneId($this),
                 property = getProperty($this);
-            $this.closest(".ha-zone-section").find(".ha-zone-value input").val(val);
 
-            callAmp(property + "|" + zoneId, function() {
-                amp[property](zoneId, val);
-            });
+            $this.closest(".ha-zone-section").find(".ha-zone-value input").val(val);
+            updateZone(zoneId);
         })
         .on("change", ".ha-zone-value input", function() {
             var $this = $(this),
                 val = $this.val(),
                 zoneId = getZoneId($this),
                 property = getProperty($this);
-            $this.closest(".ha-zone-section").find(".ha-zone-slider input").val(val);
 
-            callAmp(property + "|" + zoneId, function() {
-                amp[property](zoneId, val);
-            });
+            $this.closest(".ha-zone-section").find(".ha-zone-slider input").val(val);
+            updateZone(zoneId);
         })
         .on("change", ".ha-zone-onoff", function() {
             var $this = $(this),
-                zoneId = getZoneId($this),
-                checked = $this.is(":checked");
+                zoneId = getZoneId($this);
 
-            callAmp("onoff" + "|" + zoneId, function() {
-                amp[checked ? "On" : "Off"](zoneId);
-            });
+            updateZone(zoneId);
         })
         .on("click", ".ha-zone-mute", function() {
             var $this = $(this),
@@ -145,20 +113,18 @@
 
             $this
                 .data("muted", !muted)
-                .toggleClass("ha-zone-mute-active", !muted)
                 .val(muted ? "Mute" : "Muted");
 
-            callAmp("mute" + "|" + zoneId, function() {
-                amp[muted ? "UnMute" : "Mute"](zoneId);
-            });
+            updateZone(zoneId);
         })
         .on("change", ".ha-zone-input", function() {
             var $this = $(this),
                 val = $this.val(),
                 zoneId = getZoneId($this);
 
-            callAmp("link" + "|" + zoneId, function() {
-                amp.Link(val, zoneId);
-            });
+            updateZone(zoneId);
+        })
+        .on("click", ".reset", function() {
+            AmplifierApi.Reset();
         });
-})(jQuery, this, Amplifier);
+})(jQuery, this);

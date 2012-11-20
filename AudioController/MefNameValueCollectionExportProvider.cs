@@ -6,7 +6,7 @@ using System.ComponentModel.Composition.Primitives;
 using System.Linq;
 using System.Text;
 
-namespace AudioController
+namespace HouseAudio.AudioController
 {
     class MefNameValueCollectionExportProvider : ExportProvider
     {

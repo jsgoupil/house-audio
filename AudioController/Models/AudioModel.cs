@@ -1,7 +1,7 @@
-﻿using HomeAudio.AudioBase;
+﻿using HouseAudio.AudioBase;
 using System.Collections.Generic;
 
-namespace AudioController.Models
+namespace HouseAudio.AudioController.Models
 {
     public class AudioModel
     {

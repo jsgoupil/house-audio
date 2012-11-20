@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Http.Dependencies;
 
-namespace AudioController
+namespace HouseAudio.AudioController
 {
     class MefMvcDependencyResolver : IDependencyResolver
     {

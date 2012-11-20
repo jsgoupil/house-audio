@@ -8,7 +8,7 @@ using System.Web.Http;
 using System.Web.Http.Filters;
 using System.Web.Mvc;
 
-namespace AudioController.Filters
+namespace HouseAudio.AudioController.Filters
 {
     public class NotImplExceptionFilterAttribute : ExceptionFilterAttribute
     {

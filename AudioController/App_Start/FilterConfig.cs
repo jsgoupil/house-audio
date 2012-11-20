@@ -1,9 +1,8 @@
-﻿using AudioController.Filters;
-using System.Web;
+﻿using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace AudioController
+namespace HouseAudio.AudioController
 {
     public class FilterConfig
     {

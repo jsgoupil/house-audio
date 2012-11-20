@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace AudioController
+namespace HouseAudio.AudioController
 {
     public class BundleConfig
     {

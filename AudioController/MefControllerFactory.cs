@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 
-namespace AudioController
+namespace HouseAudio.AudioController
 {
     public class MefControllerFactory: DefaultControllerFactory
     {

@@ -1,20 +1,24 @@
-﻿@model AudioController.Models.ZoneAndInputs
+﻿@model HouseAudio.AudioController.Models.ZoneAndInputs
 
 @using (Html.BeginForm()) {
     @Html.HiddenFor(m => m.Zone)
     <div class="ha-zone" data-zoneid="@Model.Zone.Id">
         <h2>
-            <label><input type="checkbox" class="ha-zone-onoff" /> Zone @Model.Zone.Id</label>
+            <label>@Html.CheckBoxFor(m => m.Zone.On, new { @class = "ha-zone-onoff" }) Zone @Model.Zone.Id</label>
             <select class="ha-zone-input">
                 @if (Model.Inputs != null) {
-                    <option>Select an input</option>
+                    <option value="0">Select an input</option>
                     foreach (var input in Model.Inputs)
                     {
-                        <option value="@input.Id">@input.Id</option>
+                        var selected = Model.Zone.Input != null && Model.Zone.Input.Equals(input);
+                        <option value="@input.Id" selected="@selected">@input.Id</option>
                     }
                 }
             </select>
-            <input type="button" class="ha-zone-mute" value="Mute" />
+            @{
+    var mutedText = @Model.Zone.Mute ? "Muted" : "Mute";   
+            }
+            <input type="button" class="ha-zone-mute" value="@mutedText" data-muted="@Model.Zone.Mute.ToString().ToLower(System.Globalization.CultureInfo.InvariantCulture)" />
         </h2>
     
         <div class="ha-zone-section" data-property="Volume">

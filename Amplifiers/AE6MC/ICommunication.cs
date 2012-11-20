@@ -4,11 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeAudio.AE6MC
+namespace HouseAudio.Amplifier.AE6MC
 {
+    /// <summary>
+    /// Communication interface for reading/writing.
+    /// </summary>
     public interface ICommunication
     {
+        /// <summary>
+        /// Write data.
+        /// </summary>
+        /// <param name="data">Data</param>
+        /// <returns>Asynchrounous task.</returns>
         Task Write(string data);
+
+        /// <summary>
+        /// Read data.
+        /// </summary>
+        /// <returns>Data read asynchronously.</returns>
         Task<string> Read();
     }
 }

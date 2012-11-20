@@ -7,8 +7,8 @@
     <ProjectGuid>{83CF07E4-0858-4AAD-AB1B-7B977D3F1B5F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AE6MC</RootNamespace>
-    <AssemblyName>AE6MC</AssemblyName>
+    <RootNamespace>HouseAudio.Amplifier.AE6MC</RootNamespace>
+    <AssemblyName>HouseAudio.Amplifier.AE6MC</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -48,7 +48,7 @@
     <Compile Include="RS232.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AudioBase\AudioBase.csproj">
+    <ProjectReference Include="..\..\AudioBase\AudioBase.csproj">
       <Project>{d05d9064-c9f0-4143-a26a-aced0759f7dd}</Project>
       <Name>AudioBase</Name>
     </ProjectReference>
