@@ -71,8 +71,8 @@
         var input = context.find(".ha-zone-input").val();
 
         var zone = new Zone(id);
-        zone.On = context.find(".ha-zone-onoff").is(":checked");
-        zone.Volume = context.find(".ha-zone-section[data-property=Volume] .ha-zone-value input").val();
+        zone.On = context.find(".onoff").checkbox("option", "value");
+        zone.Volume = context.find(".ha-zone-section[data-property=Volume] .range").range("option", "value");
         zone.Bass = context.find(".ha-zone-section[data-property=Bass] .ha-zone-value input").val();
         zone.Treble = context.find(".ha-zone-section[data-property=Treble] .ha-zone-value input").val();
         zone.Mute = !!context.find(".ha-zone-mute").data("muted");
@@ -81,50 +81,94 @@
         return zone;
     };
 
-    $("body")
-        .on("change", ".ha-zone-slider input", function() {
+    $(function() {
+        $("body")
+            .on("change", ".ha-zone-slider input", function() {
+                var $this = $(this),
+                    val = $this.val(),
+                    zoneId = getZoneId($this),
+                    property = getProperty($this);
+
+                $this.closest(".ha-zone-section").find(".ha-zone-value input").val(val);
+                updateZone(zoneId);
+            })
+            .on("change", ".range", function() {
+                var $this = $(this),
+                    val = $this.range("option", "value"),
+                    zoneId = getZoneId($this),
+                    property = getProperty($this);
+
+                return;
+                updateZone(zoneId);
+            })
+            .on("change", ".onoff", function() {
+                var $this = $(this),
+                    zoneId = getZoneId($this);
+
+                updateZone(zoneId);
+            })
+            .on("click", ".ha-zone-mute", function() {
+                var $this = $(this),
+                    zoneId = getZoneId($this),
+                    muted = !!$this.data("muted");
+
+                $this
+                    .data("muted", !muted)
+                    .val(muted ? "Mute" : "Muted");
+
+                updateZone(zoneId);
+            })
+            .on("change", ".ha-zone-input", function() {
+                var $this = $(this),
+                    val = $this.val(),
+                    zoneId = getZoneId($this);
+
+                updateZone(zoneId);
+            })
+            .on("click", ".reset", function() {
+                AmplifierApi.Reset();
+            });
+
+
+        $(".range, .onoff").each(function() {
             var $this = $(this),
-                val = $this.val(),
-                zoneId = getZoneId($this),
-                property = getProperty($this);
+                widgetName = $this.data("control"),
+                value = $this.data("control-value");
 
-            $this.closest(".ha-zone-section").find(".ha-zone-value input").val(val);
-            updateZone(zoneId);
-        })
-        .on("change", ".ha-zone-value input", function() {
-            var $this = $(this),
-                val = $this.val(),
-                zoneId = getZoneId($this),
-                property = getProperty($this);
+            if (value === "True") {
+                value = true;
+            } else if (value === "False") {
+                value = false;
+            }
 
-            $this.closest(".ha-zone-section").find(".ha-zone-slider input").val(val);
-            updateZone(zoneId);
-        })
-        .on("change", ".ha-zone-onoff", function() {
-            var $this = $(this),
-                zoneId = getZoneId($this);
-
-            updateZone(zoneId);
-        })
-        .on("click", ".ha-zone-mute", function() {
-            var $this = $(this),
-                zoneId = getZoneId($this),
-                muted = !!$this.data("muted");
-
-            $this
-                .data("muted", !muted)
-                .val(muted ? "Mute" : "Muted");
-
-            updateZone(zoneId);
-        })
-        .on("change", ".ha-zone-input", function() {
-            var $this = $(this),
-                val = $this.val(),
-                zoneId = getZoneId($this);
-
-            updateZone(zoneId);
-        })
-        .on("click", ".reset", function() {
-            AmplifierApi.Reset();
+            $this[widgetName]({
+                value: value
+            });
         });
+
+        $(".advanced")
+            .on("click", function() {
+                var $this = $(this),
+                    advanced = !$(this).data("value");
+
+                if (advanced) {
+                    $this.val("Basic");
+                    $("body").addClass("advanced");
+                } else {
+                    $this.val("Advanced");
+                    $("body").removeClass ("advanced");
+                }
+
+                $this.data("value", advanced);
+            });
+
+        var userAgent = navigator.userAgent.toLowerCase();
+        if (userAgent.indexOf("tablet pc") > -1) {
+            $("html").addClass("surface");
+        } else if (userAgent.indexOf("mobile") > -1) {
+            $("html").addClass("mobile");
+        }
+
+        $("#output").html(navigator.userAgent);
+    });
 })(jQuery, this);

@@ -13,6 +13,6 @@ namespace HouseAudio.AudioBase
         public int Bass { get; set; }
         public int Treble { get; set; }
         public bool Mute { get; set; }
-        public Input Input { get; set; }
+        public virtual Input Input { get; set; }
     }
 }

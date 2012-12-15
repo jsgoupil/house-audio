@@ -5,21 +5,62 @@
 
 body {
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
-    background-color: #fff;
+    background-color: #514c4c;
     color: #333;
     font-size: .85em;
-    margin: 20px;
+    margin: 0;
     padding: 0;
 }
 
-.ha-zone .ha-zone-section label {
-    display: block;
-    height: 20px;
+#body {
+    padding: 20px;
+}
+
+h2 {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: #e5e5e5;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.surface h2 {
+    font-size: 18px;
+}
+
+h2 .onoff {
+    margin-right: 8px;
+}
+
+h2 select {
+    margin-top: -5px;
+    float: right;
+}
+
+.ha-zone {
+    margin-bottom: 30px;
 }
 
 .ha-zone .ha-zone-section {
     margin-bottom: 20px;
 }
+
+.ha-zone .ha-zone-section label {
+    display: block;
+    height: 20px;
+    margin-bottom: 4px;
+}
+
+.ha-zone .ha-zone-section[data-property=Bass],
+.ha-zone .ha-zone-section[data-property=Treble] {
+    display: none;
+}
+
+.advanced .ha-zone .ha-zone-section[data-property=Bass],
+.advanced .ha-zone .ha-zone-section[data-property=Treble] {
+    display: block;
+}
+
 
 .ha-zone-slider {
 }
@@ -38,6 +79,80 @@ body {
     width: 50px;
 }
 
-.ha-zone-mute {
+h2 select {
     float: right;
+}
+
+input[type=range] {
+    -webkit-appearance: none !important;
+    background: #737373;
+    height: 12px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    width: 12px;
+    height: 12px;
+    background-color: #e5e5e5;
+}
+
+.ac-range {
+    position: relative;
+    background-color: #737373;
+    height: 12px;
+    -ms-touch-action: none;
+}
+
+.surface .ac-range {
+    height: 32px;
+}
+
+.ac-range .ac-range-before {
+    background-color: #0367b8;
+    width: 50%;
+    height: 100%;
+}
+
+.ac-range .ac-range-thumb {
+    position: absolute;
+    width: 12px;
+    height: 100%;
+    background-color: #e5e5e5;
+    top: 0;
+    left: 50%;
+}
+
+.surface .ac-range-thumb {
+    width: 32px;
+}
+
+.ac-range .ac-range-helper {
+    position: absolute;
+    color: #fff;
+    padding: 6px 8px;
+    border: 2px solid #e5e5e5;
+    font-weight: bold;
+    background-color: #514c4c;
+    font-size: 0.9em;
+    display: none;
+}
+
+.ac-checkbox {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: #c40000;
+}
+
+.surface .ac-checkbox {
+    width: 18px;
+    height: 18px;
+}
+
+.ac-checkbox input {
+    display: none;
+}
+
+.ac-checkbox.ac-checkbox-on {
+    background-color: #05c400;
 }

@@ -4,7 +4,7 @@
     @Html.HiddenFor(m => m.Zone)
     <div class="ha-zone" data-zoneid="@Model.Zone.Id">
         <h2>
-            <label>@Html.CheckBoxFor(m => m.Zone.On, new { @class = "ha-zone-onoff" }) Zone @Model.Zone.Id</label>
+            <label><div class="onoff" data-control="checkbox" data-control-value="@Model.Zone.On"></div> Zone @Model.Zone.Id</label>
             <select class="ha-zone-input">
                 @if (Model.Inputs != null) {
                     <option value="0">Select an input</option>
@@ -15,26 +15,18 @@
                     }
                 }
             </select>
-            @{
-    var mutedText = @Model.Zone.Mute ? "Muted" : "Mute";   
-            }
-            <input type="button" class="ha-zone-mute" value="@mutedText" data-muted="@Model.Zone.Mute.ToString().ToLower(System.Globalization.CultureInfo.InvariantCulture)" />
         </h2>
     
         <div class="ha-zone-section" data-property="Volume">
-            <label>Volume</label>
-            <div class="ha-zone-value">@Html.TextBoxFor(m => m.Zone.Volume)</div>
-            <div class="ha-zone-slider">@Html.TextBoxFor(m => m.Zone.Volume, new { type = "range", min = 0, max = 100 })</div>
+            <div class="ha-zone-slider"><div class="range" data-control="range" data-control-value="@Model.Zone.Volume"></div></div>
         </div>
         <div class="ha-zone-section" data-property="Bass">
             <label>Bass</label>
-            <div class="ha-zone-value">@Html.TextBoxFor(m => m.Zone.Bass)</div>
-            <div class="ha-zone-slider">@Html.TextBoxFor(m => m.Zone.Bass, new { type = "range", min = 0, max = 100 })</div>
+            <div class="ha-zone-slider"><div class="range" data-control="range" data-control-value="@Model.Zone.Bass"></div></div>
         </div>
         <div class="ha-zone-section" data-property="Treble">
             <label>Treble</label>
-            <div class="ha-zone-value">@Html.TextBoxFor(m => m.Zone.Treble)</div>
-            <div class="ha-zone-slider">@Html.TextBoxFor(m => m.Zone.Treble, new { type = "range", min = 0, max = 100 })</div>
+            <div class="ha-zone-slider"><div class="range" data-control="range" data-control-value="@Model.Zone.Treble"></div></div>
         </div>
     </div>
 }

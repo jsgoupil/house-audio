@@ -6,11 +6,14 @@
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
     </head>
     <body>
-        @RenderBody()
+        <div id="body">
+            @RenderBody()
+        </div>
         
-        @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/amplifier")
 
         <script>

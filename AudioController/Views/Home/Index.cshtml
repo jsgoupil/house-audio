@@ -4,9 +4,10 @@
     ViewBag.Title = "Home Audio Controller";
 }
 
-<input type="button" class="reset" value="Reset?" />
-
 @foreach (var zone in Model.Zones)
 {
     @Html.Partial("Zone", new HouseAudio.AudioController.Models.ZoneAndInputs { Zone = zone, Inputs = Model.Inputs})
 }
+
+<input type="button" class="reset" value="Reset?" />
+<input type="button" class="advanced" value="Advanced Mode" />

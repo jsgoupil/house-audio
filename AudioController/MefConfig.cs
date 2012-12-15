@@ -26,7 +26,7 @@ namespace HouseAudio.AudioController
             var assemblyCatalog = new DirectoryCatalog(System.Web.HttpContext.Current.Server.MapPath("~/Amplifier"));
             var asmCat = new AssemblyCatalog(typeof(HomeController).Assembly);
             var aggCat = new AggregateCatalog(assemblyCatalog, asmCat);
-            var container = new CompositionContainer(aggCat, new MefNameValueCollectionExportProvider(ConfigurationManager.AppSettings));
+            var container = new CompositionContainer(aggCat, true, new MefNameValueCollectionExportProvider(ConfigurationManager.AppSettings));
 
             return container;
         }

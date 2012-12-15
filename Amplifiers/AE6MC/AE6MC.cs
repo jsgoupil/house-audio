@@ -18,8 +18,7 @@ namespace HouseAudio.Amplifier.AE6MC
         internal const int NumberOfInputs = 7;
 
         private ControlAE6MC controlAmplifier;
-        private IList<Zone> zones;
-        private IEnumerable<Input> inputs;
+        private AE6MCContext context;
 
         /// <summary>
         /// Constructor.
@@ -33,26 +32,40 @@ namespace HouseAudio.Amplifier.AE6MC
 
         private void Initialize()
         {
-            this.zones = Enumerable.Range(1, NumberOfZones).Select(i => new Zone()
-            {
-                Id = i.ToString(),
-                On = false,
-                Volume = 0,
-                Bass = 0,
-                Treble = 0,
-                Mute = false,
-                Input = null,
-            }).ToList();
+            context = new AE6MCContext();
 
-            this.inputs = Enumerable.Range(1, NumberOfInputs).Select(i => new Input()
+            if (context.Zones.Count() == 0)
             {
-                Id = i.ToString()
-            });
+                var zones = Enumerable.Range(1, NumberOfZones).Select(i => new Zone()
+                {
+                    Id = i.ToString(),
+                    On = false,
+                    Volume = 0,
+                    Bass = 0,
+                    Treble = 0,
+                    Mute = false,
+                    Input = null,
+                }).ToList();
+
+                zones.ForEach(z => context.Zones.Add(z));
+                context.SaveChanges();
+            }
+
+            if (context.Inputs.Count() == 0)
+            {
+                var inputs = Enumerable.Range(1, NumberOfInputs).Select(i => new Input()
+                {
+                    Id = i.ToString()
+                }).ToList();
+
+                inputs.ForEach(i => context.Inputs.Add(i));
+                context.SaveChanges();
+            }
         }
 
         public async Task SetZone(Zone zone)
         {
-            Zone foundZone = zones.Where(z => z.Id == zone.Id).FirstOrDefault();
+            Zone foundZone = context.Zones.Where(z => z.Id == zone.Id).FirstOrDefault();
             if (foundZone != null)
             {
                 // Compares each values if they are different and call the correct API
@@ -89,8 +102,10 @@ namespace HouseAudio.Amplifier.AE6MC
                 if (zone.Input != null && zone.Input.Id != null && !zone.Input.Equals(foundZone.Input))
                 {
                     await controlAmplifier.SetLink(zone.Id, zone.Input.Id);
-                    foundZone.Input = zone.Input;
+                    foundZone.Input = context.Inputs.Where(z => z.Id == zone.Input.Id).FirstOrDefault();
                 }
+
+                context.SaveChanges();
             }
         }
 
@@ -111,7 +126,7 @@ namespace HouseAudio.Amplifier.AE6MC
         /// <returns>Zones</returns>
         public Zone GetZone(Zone zone)
         {
-            return zones.Where(z => z.Id == zone.Id).FirstOrDefault();
+            return context.Zones.Where(z => z.Id == zone.Id).FirstOrDefault();
         }
 
         /// <summary>
@@ -120,7 +135,7 @@ namespace HouseAudio.Amplifier.AE6MC
         /// <returns>Zones</returns>
         public IEnumerable<Zone> GetZones()
         {
-            return zones;
+            return context.Zones;
         }
 
         /// <summary>
@@ -129,7 +144,7 @@ namespace HouseAudio.Amplifier.AE6MC
         /// <returns>Inputs</returns>
         public IEnumerable<Input> GetInputs()
         {
-            return inputs;
+            return context.Inputs;
         }
 
         /// <summary>
