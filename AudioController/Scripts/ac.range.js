@@ -1,4 +1,4 @@
-﻿(function($, parentWidget, undefined) {
+﻿(function($, parentWidget, global, undefined) {
     var base = parentWidget.prototype,
         template =
             "<div class='ac-range-before'></div>" +
@@ -17,6 +17,8 @@
         _pointerDownHandler: null,
         _touchStartHandler: null,
         _mouseDownHandler: null,
+        _thumbClickHandler: null,
+        _resizeHandler: null,
         _pointerMoveHandler: null,
         _mouseMoveHandler: null,
         _touchMoveHandler: null,
@@ -75,6 +77,7 @@
                 .on("mousedown", ".ac-range-thumb", this._mouseDownHandler = function(evt1) {
                     var offset = that.element.offset(),
                         thumbWidth = that._thumb.width();
+                    that._setPositionRaw(evt1.pageX - offset.left - thumbWidth / 2);
                     $("body")
                         .on("mousemove touchmove", that._mouseMoveHandler = function(evt2) {
                             that._setPositionRaw(evt2.pageX - offset.left - thumbWidth / 2);
@@ -87,12 +90,22 @@
 
                     evt1.preventDefault();
                 })
+                .on("click", ".ac-range-thumb", this._thumbClickHandler = function() {
+                    return false;
+                })
                 .on("click", this._clickHandler = function(evt) {
                     var offset = that.element.offset(),
                         thumbWidth = that._thumb.width();
 
                     that._setPositionRaw(evt.pageX - offset.left - thumbWidth / 2);
+
+                    // Emulate the pointer up
+                    that._pointerUp();
                 });
+
+            $(global).on("resize", this._resizeHandler = function() {
+                that._setPosition(that.options.value);
+            });
 
             this._thumb = this.element.find(".ac-range-thumb");
             this._before = this.element.find(".ac-range-before");
@@ -126,6 +139,16 @@
                 this._mouseDownHandler = null;
             }
 
+            if (this._thumbClickHandler) {
+                this.element.off("click", this._thumbClickHandler);
+                this._thumbClickHandler = null;
+            }
+
+            if (this._resizeHandler) {
+                $(global).off("resize", this._resizeHandler);
+                this.resizeHandler = null;
+            }
+
             if (this._clickHandler) {
                 this.element.off("click", this._clickHandler);
                 this._clickHandler = null;
@@ -134,18 +157,23 @@
             base.destroy.call(this);
         },
 
+        refresh: function() {
+            this._setPosition(this.options.value);
+        },
+
         _setPosition: function(value) {
             // Find the percentage
             var percentage = (value - this.options.min) / (this.options.max - this.options.min);
-            this._setPositionRaw(this.element.width() * percentage);
+            this._setPositionRaw(this.element.width() * percentage, true);
         },
 
-        _setPositionRaw: function(value) {
+        _setPositionRaw: function(value, noChange) {
             var that = this,
                 elementWidth = this.element.width(),
                 thumbWidth = this._thumb.width(),
                 effectiveWidth = elementWidth - thumbWidth,
                 correctedValue = Math.min(effectiveWidth, Math.max(0, value));
+
             this._thumb
                 .css({
                     left: correctedValue
@@ -155,23 +183,25 @@
                     width: correctedValue
                 });
 
-            this.options.value = parseInt(parseInt(correctedValue / effectiveWidth * 100) / 100 * (this.options.max - this.options.min) + this.options.min, 10);
+            if (!noChange) {
+                this.options.value = parseInt(parseInt(correctedValue / effectiveWidth * 100) / 100 * (this.options.max - this.options.min) + this.options.min, 10);
 
-            this._helper
-                .html(this.options.value);
-
-            if (!this._creating) {
                 this._helper
-                    .css({
-                        left: correctedValue + thumbWidth / 2 - this._helper.outerWidth(true) / 2,
-                        top: -this._helper.outerHeight(true) - 5
-                    })
-                    .fadeIn("fast");
-            }
+                    .html(this.options.value);
 
-            if (this.options.value !== this._previousValue) {
-                this._previousValue = this.options.value;
-                this._trigger("change", null, { value: this.options.value });
+                if (!this._creating) {
+                    this._helper
+                        .css({
+                            left: correctedValue + thumbWidth / 2 - this._helper.outerWidth(true) / 2,
+                            top: -this._helper.outerHeight(true) - 5
+                        })
+                        .fadeIn("fast");
+                }
+
+                if (this.options.value !== this._previousValue) {
+                    this._previousValue = this.options.value;
+                    this._trigger("change", null, { value: this.options.value });
+                }
             }
         },
 
@@ -193,4 +223,4 @@
             return ret;
         }
     });
-})(jQuery, jQuery.Widget);
+})(jQuery, jQuery.Widget, this);

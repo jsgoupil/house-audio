@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright>
+//     Copyright (c) Jean-Sébastien Goupil.
+// </copyright>
 
 namespace HouseAudio.Amplifier.AE6MC
 {
+    using System.ComponentModel.Composition;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Mock implementation of the ICommunication
     /// </summary>

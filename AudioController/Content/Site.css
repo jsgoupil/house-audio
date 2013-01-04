@@ -12,8 +12,31 @@ body {
     padding: 0;
 }
 
-#body {
+img {
+    border: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#main {
     padding: 20px;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
 }
 
 h2 {
@@ -49,6 +72,7 @@ h2 select {
     display: block;
     height: 20px;
     margin-bottom: 4px;
+    color: #fff;
 }
 
 .ha-zone .ha-zone-section[data-property=Bass],
@@ -99,7 +123,7 @@ input[type=range]::-webkit-slider-thumb {
 .ac-range {
     position: relative;
     background-color: #737373;
-    height: 12px;
+    height: 24px;
     -ms-touch-action: none;
 }
 
@@ -115,7 +139,7 @@ input[type=range]::-webkit-slider-thumb {
 
 .ac-range .ac-range-thumb {
     position: absolute;
-    width: 12px;
+    width: 24px;
     height: 100%;
     background-color: #e5e5e5;
     top: 0;
@@ -155,4 +179,248 @@ input[type=range]::-webkit-slider-thumb {
 
 .ac-checkbox.ac-checkbox-on {
     background-color: #05c400;
+}
+
+ul.tabs {
+    width: 100%;
+    height: 30px;
+    overflow: auto;
+}
+
+.surface ul.tabs {
+    height: 45px;
+}
+
+ul.tabs li {
+    float: left;
+    height: 100%;
+    width: 50%;
+    line-height: 30px;
+    background-color: #737373;
+    text-align: center;
+}
+
+.surface ul.tabs li {
+    line-height: 45px;
+    font-size: 1.2em;
+}
+
+ul.tabs li.selected {
+    background-color: #0367b8;
+    font-weight: bold;
+}
+
+ul.tabs li img {
+    vertical-align: text-bottom;
+}
+
+ul.tabs li a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+}
+
+#main .sound {
+    display: none;
+}
+
+#main .spotify {
+    display: none;
+}
+
+#main.showing-sound .sound {
+    display: block;
+}
+
+#main.showing-spotify .spotify {
+    display: block;
+}
+
+#main .spotify .search .text {
+}
+
+#main .spotify .search input[type=text] {
+    height: 32px;
+    padding: 4px;
+    width: 100%;
+    border: 0;
+    box-sizing: border-box;
+}
+
+#main .spotify .search button {
+    background: none;
+    border: 0;
+    float: right;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    margin-top: -30px;
+    margin-right: 2px;
+}
+
+#main .spotify .result {
+    color: #fff;
+    margin-top: 30px;
+}
+
+#main .spotify .result .covers h2 {
+    font-size: 2.0em;
+    font-family: "Segoe UI Light";
+}
+
+#main .spotify .result .covers h2 span {
+    font-size: 0.5em;
+}
+
+#main .spotify .result .covers figure {
+    margin: 13px 40px;
+}
+
+#main .spotify .result .covers {
+    float: left;
+    width: 50%;
+}
+
+#main .spotify .result .cover {
+    display: block;
+}
+
+.art {
+    position: relative;
+    line-height: 0;
+}
+
+.art .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+}
+
+.art:hover .overlay {
+    display: block;
+}
+
+#main .spotify .result .covers .notfound {
+    font-size: 1.2em;
+    font-family: "Segoe UI Light";
+}
+
+#main .spotify .result .covers li {
+    text-align: center;
+    float: left;
+    margin-bottom: 40px;
+}
+
+#main .spotify .result .covers li img {
+    width: 200px;
+    height: 200px;
+}
+
+#main .spotify .result .covers a {
+    color: #fff;
+}
+
+
+#main .spotify .result table thead th {
+    font-weight: normal;
+    text-align: left;
+    font-family: "Segoe UI Light";
+    font-size: 2em;
+}
+
+#main .spotify .result table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#main .spotify .result table td:nth-child(1) {
+    width: 35px;
+    padding-left: 4px;
+    font-size: 0;
+}
+
+#main .spotify .result table tbody img.play {
+    width: 25px;
+    vertical-align: text-bottom;
+}
+
+#main .spotify .result table a {
+    color: #fff;
+}
+
+#main .spotify .result table tbody tr:nth-child(odd) {
+    background-color: #666666;
+}
+#main .spotify .result table td,
+#main .spotify .result table th {
+    padding: 4px 0;
+}
+
+#main .spotify .result table tbody tr.selected {
+    background-color: #0367b8;
+}
+
+.player {
+    padding: 12px;
+    background-color: #373737;
+    overflow: auto;
+    position: relative;
+    display: none; /* Not finished yet */
+}
+
+.player .art {
+    float: left;
+    margin-right: 16px;
+    box-shadow: #000 1px 1px;
+}
+.player img {
+    width: 100px;
+}
+
+.player .title {
+    color: #fff;
+    margin-top: 20px;
+}
+
+.player .title .track {
+    font-family: "Segoe UI Light";
+    font-size: 1.2em;
+}
+
+.player .title .artist {
+    font-family: "Segoe UI Light";
+    font-size: 0.9em;
+    color: #c8c8c8;
+}
+
+.player .progress {
+    position: absolute;
+    bottom: 30px;
+    left: 126px;
+    right: 12px;
+}
+
+.player .progress .box {
+    background-color: #1b1b1b;
+    height: 13px;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+.player .progress .box .seeker {
+    background-color: #0367B8;
+    height: 5px;
+}
+
+.player .progress .time {
+    text-align: right;
+    color: #c8c8c8;
+    font-family: "Segoe UI Light";
+    font-size: 0.8em;
+    margin-bottom: 4px;
+    margin-right: 2px;
 }

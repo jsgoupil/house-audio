@@ -1,13 +1,108 @@
 ﻿@model HouseAudio.AudioController.Models.AudioModel
 
 @{
-    ViewBag.Title = "Home Audio Controller";
+    ViewBag.Title = "Audio Controller";
 }
 
-@foreach (var zone in Model.Zones)
-{
-    @Html.Partial("Zone", new HouseAudio.AudioController.Models.ZoneAndInputs { Zone = zone, Inputs = Model.Inputs})
-}
+<ul class="tabs">
+    <li class="sound" data-tab="sound"><a href="#">Sound</a></li>
+    <li class="spotify" data-tab="spotify"><a href="#"><img src="@Href("~/Content/spotify.png")" alt="" /> Spotify</a></li>
+</ul>
 
-<input type="button" class="reset" value="Reset?" />
-<input type="button" class="advanced" value="Advanced Mode" />
+<div class="player">
+    <div class="art">
+        <img src="http://d3rt1990lpmkn.cloudfront.net/640/0ed615b4e917a132ef962a8eb0fc0f7765639765" alt="" />
+        <img src="@Href("~/Content/bigplay.png")" alt="Play" class="overlay" />
+    </div>
+    <div class="title">
+        <div class="track">Let's go - Radio edit</div>
+        <div class="artist">Calvin Harris feat. Ne-Yo</div>
+    </div>
+    <div class="progress">
+        <div class="time">1:34</div>
+        <div class="box"><div class="seeker" style="width: 50%"></div></div>
+    </div>
+</div>
+
+
+<div id="main">
+    <div class="sound">
+        @foreach (var zone in Model.Zones)
+        {
+            @Html.Partial("Zone", new HouseAudio.AudioController.Models.ZoneAndInputs { Zone = zone, Inputs = Model.Inputs})
+        }
+
+        <input type="button" class="reset" value="Reset?" />
+        <input type="button" class="advanced" value="Advanced Mode" />
+    </div>
+    <div class="spotify">
+        <form class="search">
+            <div class="text"><input type="text" /></div>
+            <button type="submit"><img src="@Href("~/Content/search.png")" alt="Search" /></button>
+        </form>
+
+        <div class="result" data-bind="visible: trackResult().tracks.length">
+            <div class="artists covers">
+                <h2>Artists <span data-bind="text: '(' + artistResult().info.num_results + ' results)'"></span></h2>
+                <ul data-bind="visible: artistResult().artists.length, foreach: { data: artistResult().artists, afterRender: $root.helper.renderArt }">
+                    <li>
+                        <figure>
+                            <a href="#" data-bind="attr: { 'data-spotify-play': href }" class="cover art">
+                                <img data-bind="attr: { 'data-spotify-art': href }" alt="" />
+                                <img src="@Href("~/Content/bigplay.png")" alt="Play" class="overlay" />
+                            </a>
+                            <figcaption><a href="#" data-bind="attr: { 'data-spotify-lookup': href }, text: name"></a></figcaption>
+                        </figure>
+                    </li>
+                </ul>
+                <div class="notfound" data-bind="visible: !artistResult().artists.length">No artists found</div>
+            </div>
+            <div class="albums covers">
+                <h2>Albums <span data-bind="text: '(' + albumResult().albums.length + ' results)'"></span></h2>
+                <ul data-bind="visible: albumResult().albums.length, foreach: { data: albumResult().albums, afterRender: $root.helper.renderArt }">
+                    <li>
+                        <figure>
+                            <a href="#" data-bind="attr: { 'data-spotify-play': href }" class="cover art">
+                                <img data-bind="attr: { 'data-spotify-art': href }" alt="" />
+                                <img src="@Href("~/Content/bigplay.png")" alt="Play" class="overlay" />
+                            </a>
+                            <figcaption><a href="#" data-bind="attr: { 'data-spotify-lookup': href }, text: name"></a></figcaption>
+                        </figure>
+                    </li>
+                </ul>
+                <div class="notfound" data-bind="visible: !albumResult().albums.length">No albums found</div>
+            </div>
+
+            <table class="tracks">
+                <colgroup>
+                    <col class="play" />
+                    <col class="track" />
+                    <col class="artist" />
+                    <col class="time" />
+                    <col class="popularity" />
+                    <col class="album" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Track</th>
+                        <th>Artist</th>
+                        <th>Time</th>
+                        <th>Popularity</th>
+                        <th>Album</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: trackResult().tracks">
+                    <tr>
+                        <td><a href="#" data-bind="attr: { 'data-spotify-play': href }"><img src="@Href("~/Content/play.png")" alt="Play" /></a></td>
+                        <td data-bind="text: name"></td>
+                        <td data-bind="html: $root.helper.artists(artists)"></td>
+                        <td data-bind="text: $root.helper.time(length)"></td>
+                        <td data-bind="html: $root.helper.popularity(popularity)"></td>
+                        <td data-bind="html: $root.helper.album(album)"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

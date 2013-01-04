@@ -1,30 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿// <copyright>
+//     Copyright (c) Jean-Sébastien Goupil.
+// </copyright>
 
 namespace HouseAudio.AudioBase
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// Interface for any kind of amplifier.
+    /// </summary>
     public interface IAmplifier
     {
         /// <summary>
         /// Sets the zone data.
         /// </summary>
-        /// <returns>Zones</returns>
+        /// <param name="zone">Zone</param>
+        /// <returns>Task</returns>
         Task SetZone(Zone zone);
 
         /// <summary>
         /// Sets the zones data.
         /// </summary>
-        /// <returns>Zones</returns>
+        /// <param name="zones">Zones</param>
+        /// <returns>Task</returns>
         Task SetZones(IEnumerable<Zone> zones);
 
         /// <summary>
         /// Gets the information about one zone.
         /// </summary>
-        /// <returns>Zone</returns>
+        /// <param name="zone">Zone</param>
+        /// <returns>Task</returns>
         Zone GetZone(Zone zone);
 
         /// <summary>

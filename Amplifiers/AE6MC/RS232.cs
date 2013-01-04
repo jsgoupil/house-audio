@@ -1,20 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright>
+//     Copyright (c) Jean-Sébastien Goupil.
+// </copyright>
 
 namespace HouseAudio.Amplifier.AE6MC
 {
+    using System;
+    using System.ComponentModel.Composition;
+    using System.IO.Ports;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// RS232 implementation of the ICommunication
     /// </summary>
     [Export(typeof(ICommunication))]
     public class RS232 : ICommunication, IDisposable
     {
-        private static RS232 instance;
+        /// <summary>
+        /// Instance of the serial port.
+        /// </summary>
         private SerialPort serialPort;
 
         /// <summary>
@@ -24,14 +27,14 @@ namespace HouseAudio.Amplifier.AE6MC
         [ImportingConstructor]
         private RS232([Import("COMport")]string portName)
         {
-            serialPort = new SerialPort(portName);
-            serialPort.BaudRate = 19200;
-            serialPort.DataBits = 8;
-            serialPort.StopBits = StopBits.One;
-            serialPort.Parity = Parity.None;
-            serialPort.ReadTimeout = 1000;
-            serialPort.WriteTimeout = 500;
-            serialPort.Handshake = Handshake.None;
+            this.serialPort = new SerialPort(portName);
+            this.serialPort.BaudRate = 19200;
+            this.serialPort.DataBits = 8;
+            this.serialPort.StopBits = StopBits.One;
+            this.serialPort.Parity = Parity.None;
+            this.serialPort.ReadTimeout = 1000;
+            this.serialPort.WriteTimeout = 500;
+            this.serialPort.Handshake = Handshake.None;
         }
 
         /// <summary>
@@ -39,9 +42,9 @@ namespace HouseAudio.Amplifier.AE6MC
         /// </summary>
         public void Connect()
         {
-            if (!serialPort.IsOpen)
+            if (!this.serialPort.IsOpen)
             {
-                serialPort.Open();
+                this.serialPort.Open();
             }
         }
 
@@ -50,7 +53,7 @@ namespace HouseAudio.Amplifier.AE6MC
         /// </summary>
         public void Disconnect()
         {
-            serialPort.Close();
+            this.serialPort.Close();
         }
 
         /// <summary>
@@ -60,8 +63,8 @@ namespace HouseAudio.Amplifier.AE6MC
         /// <returns>Asynchronous task.</returns>
         public Task Write(string data)
         {
-            Connect();
-            serialPort.Write(data);
+            this.Connect();
+            this.serialPort.Write(data);
             return Task.Delay(100);
         }
 
@@ -71,8 +74,8 @@ namespace HouseAudio.Amplifier.AE6MC
         /// <returns>Data read asynchronously.</returns>
         public Task<string> Read()
         {
-            Connect();
-            return serialPort.GetTextReader().ReadAsync();
+            this.Connect();
+            return this.serialPort.GetTextReader().ReadAsync();
         }
 
         /// <summary>
@@ -80,7 +83,7 @@ namespace HouseAudio.Amplifier.AE6MC
         /// </summary>
         public void Dispose()
         {
-            Disconnect();
+            this.Disconnect();
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright>
+//     Copyright (c) Jean-Sébastien Goupil.
+// </copyright>
 
 namespace HouseAudio.Amplifier.AE6MC
 {
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Communication interface for reading/writing.
     /// </summary>

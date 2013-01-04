@@ -83,7 +83,7 @@
 
     $(function() {
         $("body")
-            .on("change", ".ha-zone-slider input", function() {
+            .on("change", ".ha-zone-slider", function() {
                 var $this = $(this),
                     val = $this.val(),
                     zoneId = getZoneId($this),
@@ -160,6 +160,8 @@
                 }
 
                 $this.data("value", advanced);
+
+                $("[data-control=range]").range("refresh");
             });
 
         var userAgent = navigator.userAgent.toLowerCase();
@@ -170,5 +172,11 @@
         }
 
         $("#output").html(navigator.userAgent);
+
+        $(".tabs").on("click", "a", function() {
+            setTimeout(function() {
+                $("[data-control=range]").range("refresh");
+            }, 0);
+        });
     });
 })(jQuery, this);

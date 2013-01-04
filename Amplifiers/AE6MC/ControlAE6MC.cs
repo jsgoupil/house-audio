@@ -1,13 +1,17 @@
-﻿using HouseAudio.AudioBase;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+﻿// <copyright>
+//     Copyright (c) Jean-Sébastien Goupil.
+// </copyright>
 
 namespace HouseAudio.Amplifier.AE6MC
 {
+    using System;
+    using System.ComponentModel.Composition;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// Controls the AE6MC.
+    /// </summary>
     [Export]
     public class ControlAE6MC
     {
@@ -52,6 +56,8 @@ namespace HouseAudio.Amplifier.AE6MC
         /// <param name="id">Zone</param>
         /// <param name="on">On or off</param>
         /// <returns>Async</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1119:StatementMustNotUseUnnecessaryParenthesis", Justification = "Bug in Stylecop. The parenthesis is needed"),
+        System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1008:OpeningParenthesisMustBeSpacedCorrectly", Justification = "Bug in Stylecop. The parenthesis is good")]
         public async Task SetOn(string id, bool on)
         {
             await (on ?
@@ -65,6 +71,8 @@ namespace HouseAudio.Amplifier.AE6MC
         /// <param name="id">Zone</param>
         /// <param name="mute">Muted (true) or Unmuted (false)</param>
         /// <returns>Async</returns>
+                [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1119:StatementMustNotUseUnnecessaryParenthesis", Justification = "Bug in Stylecop. The parenthesis is needed"),
+        System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1008:OpeningParenthesisMustBeSpacedCorrectly", Justification = "Bug in Stylecop. The parenthesis is good")]
         public async Task SetMute(string id, bool mute)
         {
             await (mute ?
@@ -77,6 +85,8 @@ namespace HouseAudio.Amplifier.AE6MC
         /// </summary>
         /// <param name="mute">Muted (true) or Unmuted (false)</param>
         /// <returns>Async</returns>
+                [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1119:StatementMustNotUseUnnecessaryParenthesis", Justification = "Bug in Stylecop. The parenthesis is needed"),
+        System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1008:OpeningParenthesisMustBeSpacedCorrectly", Justification = "Bug in Stylecop. The parenthesis is good")]
         public async Task MuteAll(bool mute)
         {
             await (mute ?
@@ -94,7 +104,7 @@ namespace HouseAudio.Amplifier.AE6MC
             await this.communication.Write("(" + id + "vl?)");
             string result = await this.communication.Read();
             int finalResult;
-            if (!Int32.TryParse(result, out finalResult))
+            if (!int.TryParse(result, out finalResult))
             {
                 return -1;
             }

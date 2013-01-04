@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="">
     <head>
         <meta charset="utf-8" />
         <title>@ViewBag.Title</title>
@@ -8,6 +8,7 @@
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/knockout")
     </head>
     <body>
         <div id="body">
@@ -22,6 +23,9 @@
                 Reset: '@Url.RouteUrl("AmplifierApi", new { httproute = "", controller = "Amplifier", action="Reset" })'
             };
             ZoneApi.url = '@Url.RouteUrl("ZoneApi", new { httproute = "", controller = "Zone" })';
+            SpotifyApi.url = {
+                search: '@Url.RouteUrl("SpotifyApi", new { httproute = "", controller = "Spotify", action="Search" })'
+            };
         </script>
     </body>
 </html>

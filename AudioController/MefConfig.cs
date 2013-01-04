@@ -1,19 +1,23 @@
-﻿using HouseAudio.AudioController.Controllers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
-using System.Configuration;
-using System.Linq;
-using System.Reflection;
-using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
+﻿// <copyright>
+//     Copyright (c) Jean-Sébastien Goupil.
+// </copyright>
 
 namespace HouseAudio.AudioController
 {
+    using System.ComponentModel.Composition.Hosting;
+    using System.Configuration;
+    using System.Web.Http;
+    using System.Web.Mvc;
+    using HouseAudio.AudioController.Controllers;
+
+    /// <summary>
+    /// MEF configuration.
+    /// </summary>
     public static class MefConfig
     {
+        /// <summary>
+        /// Registers MEF.
+        /// </summary>
         public static void RegisterMef()
         {
             var compositionContainer = ConfigureContainer(); 
@@ -21,6 +25,10 @@ namespace HouseAudio.AudioController
             GlobalConfiguration.Configuration.DependencyResolver = new MefMvcDependencyResolver(compositionContainer);
         }
 
+        /// <summary>
+        /// Configures the container.
+        /// </summary>
+        /// <returns>Container</returns>
         private static CompositionContainer ConfigureContainer()
         {
             var assemblyCatalog = new DirectoryCatalog(System.Web.HttpContext.Current.Server.MapPath("~/Amplifier"));

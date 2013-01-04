@@ -1,21 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Ports;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+﻿// <copyright>
+//     Copyright (c) Jean-Sébastien Goupil.
+// </copyright>
 
 namespace HouseAudio.Amplifier.AE6MC
 {
+    using System;
+    using System.IO;
+    using System.IO.Ports;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// Extensions for the SerialPort.
+    /// </summary>
     public static class MyExtensions
     {
+        /// <summary>
+        /// Creates a Stream TextReader around the serial port.
+        /// </summary>
+        /// <param name="serialPort">Serial Port</param>
+        /// <returns>TextReader</returns>
         public static TextReader GetTextReader(this SerialPort serialPort)
         {
             // TODO: allow other StreamReader constructors.
             return new StreamReader(serialPort.BaseStream, serialPort.Encoding);
         }
 
+        /// <summary>
+        /// Reads asynchronously the text reader.
+        /// </summary>
+        /// <param name="textReader">Text Reader</param>
+        /// <returns>String</returns>
         public static async Task<string> ReadAsync(this TextReader textReader)
         {
             var tcs = new TaskCompletionSource<string>();
@@ -55,5 +69,3 @@ namespace HouseAudio.Amplifier.AE6MC
         }
     }
 }
-
-
