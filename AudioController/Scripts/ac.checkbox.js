@@ -20,18 +20,15 @@
             this.element
                 .html(template)
                 .addClass("ac-checkbox")
-                .on("click", this._clickHandler = function(evt) {
-                    that._setOption("value", !that.options.value);
-                    that._trigger("change", evt, { value: that.options.value });
-                })
                 .find("input")
                     .on("change",function(evt) {
                         that._setOption("value", $(this).is(":checked"));
+                        that._trigger("change", evt, { value: that.options.value });
                         evt.stopPropagation();
-                       // that._trigger("change", evt, { value: that.options.value });
                     });
 
             this._setOption("value", this.options.value);
+            this.element.find('input').prop('checked', this.options.value);
 
             base._create.call(this);
         },
