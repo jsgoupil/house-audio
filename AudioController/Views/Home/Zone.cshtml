@@ -4,7 +4,7 @@
     @Html.HiddenFor(m => m.Zone)
     <div class="ha-zone" data-zoneid="@Model.Zone.Id">
         <h2>
-            <label><div class="onoff" data-control="checkbox" data-control-value="@Model.Zone.On"></div> Zone @Model.Zone.Id</label>
+            <label><div class="onoff" data-control="checkbox" data-control-value="@Model.Zone.On"></div> @Model.Zone.FriendlyName</label>
             <select class="ha-zone-input">
                 @if (Model.Inputs != null) {
                     <option value="0">Select an input</option>
