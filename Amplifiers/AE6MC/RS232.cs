@@ -15,6 +15,8 @@ namespace HouseAudio.Amplifier.AE6MC
     [Export(typeof(ICommunication))]
     public class RS232 : ICommunication, IDisposable
     {
+        private static readonly Object obj = new Object();
+
         /// <summary>
         /// Instance of the serial port.
         /// </summary>
@@ -42,9 +44,12 @@ namespace HouseAudio.Amplifier.AE6MC
         /// </summary>
         public void Connect()
         {
-            if (!this.serialPort.IsOpen)
+            lock (obj)
             {
-                this.serialPort.Open();
+                if (!this.serialPort.IsOpen)
+                {
+                    this.serialPort.Open();
+                }
             }
         }
 
@@ -53,7 +58,10 @@ namespace HouseAudio.Amplifier.AE6MC
         /// </summary>
         public void Disconnect()
         {
-            this.serialPort.Close();
+            lock (obj)
+            {
+                this.serialPort.Close();
+            }
         }
 
         /// <summary>
@@ -64,7 +72,12 @@ namespace HouseAudio.Amplifier.AE6MC
         public Task Write(string data)
         {
             this.Connect();
-            this.serialPort.Write(data);
+
+            lock (obj)
+            {
+                this.serialPort.Write(data);
+            }
+
             return Task.Delay(100);
         }
 
@@ -75,7 +88,10 @@ namespace HouseAudio.Amplifier.AE6MC
         public Task<string> Read()
         {
             this.Connect();
-            return this.serialPort.GetTextReader().ReadAsync();
+            lock (obj)
+            {
+                return this.serialPort.GetTextReader().ReadAsync();
+            }
         }
 
         /// <summary>
