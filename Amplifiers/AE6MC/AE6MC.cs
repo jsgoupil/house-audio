@@ -52,44 +52,45 @@ namespace HouseAudio.Amplifier.AE6MC
         /// chatting with the amplifier.
         /// </summary>
         /// <param name="zone">Zone</param>
+        /// <param name="force">Force</param>
         /// <returns>Async.</returns>
-        public async Task SetZone(Zone zone)
+        public async Task SetZone(Zone zone, bool force)
         {
             Zone foundZone = this.context.Zones.Where(z => z.Id == zone.Id).FirstOrDefault();
             if (foundZone != null)
             {
                 // Compares each values if they are different and call the correct API
-                if (zone.On != foundZone.On)
+                if (force || zone.On != foundZone.On)
                 {
                     await this.controlAmplifier.SetOn(zone.Id, zone.On);
                     foundZone.On = zone.On;
                 }
 
-                if (zone.Volume != foundZone.Volume)
+                if (force || zone.Volume != foundZone.Volume)
                 {
                     await this.controlAmplifier.SetVolume(zone.Id, zone.Volume);
                     foundZone.Volume = zone.Volume;
                 }
 
-                if (zone.Bass != foundZone.Bass)
+                if (force || zone.Bass != foundZone.Bass)
                 {
                     await this.controlAmplifier.SetBass(zone.Id, zone.Bass);
                     foundZone.Bass = zone.Bass;
                 }
 
-                if (zone.Treble != foundZone.Treble)
+                if (force || zone.Treble != foundZone.Treble)
                 {
                     await this.controlAmplifier.SetTreble(zone.Id, zone.Treble);
                     foundZone.Treble = zone.Treble;
                 }
 
-                if (zone.Mute != foundZone.Mute)
+                if (force || zone.Mute != foundZone.Mute)
                 {
                     await this.controlAmplifier.SetMute(zone.Id, zone.Mute);
                     foundZone.Mute = zone.Mute;
                 }
 
-                if (zone.Input != null && zone.Input.Id != null && !zone.Input.Equals(foundZone.Input))
+                if (force || (zone.Input != null && zone.Input.Id != null && !zone.Input.Equals(foundZone.Input)))
                 {
                     await this.controlAmplifier.SetLink(zone.Id, zone.Input.Id);
                     foundZone.Input = this.context.Inputs.Where(z => z.Id == zone.Input.Id).FirstOrDefault();
@@ -103,14 +104,15 @@ namespace HouseAudio.Amplifier.AE6MC
         /// Sets multiple zone at once.
         /// </summary>
         /// <param name="zones">Zones</param>
+        /// <param name="force">Force</param>
         /// <returns>Async.</returns>
-        public async Task SetZones(IEnumerable<Zone> zones)
+        public async Task SetZones(IEnumerable<Zone> zones, bool force)
         {
             if (zones != null)
             {
                 foreach (var zone in zones)
                 {
-                    await this.SetZone(zone);
+                    await this.SetZone(zone, force);
                 }
             }
         }

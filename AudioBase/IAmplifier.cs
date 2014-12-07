@@ -16,15 +16,17 @@ namespace HouseAudio.AudioBase
         /// Sets the zone data.
         /// </summary>
         /// <param name="zone">Zone</param>
+        /// <param name="force">Force</param>
         /// <returns>Task</returns>
-        Task SetZone(Zone zone);
+        Task SetZone(Zone zone, bool force);
 
         /// <summary>
         /// Sets the zones data.
         /// </summary>
         /// <param name="zones">Zones</param>
+        /// <param name="force">Force</param>
         /// <returns>Task</returns>
-        Task SetZones(IEnumerable<Zone> zones);
+        Task SetZones(IEnumerable<Zone> zones, bool force);
 
         /// <summary>
         /// Gets the information about one zone.
