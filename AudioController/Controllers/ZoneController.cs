@@ -50,7 +50,7 @@ namespace HouseAudio.AudioController.Controllers
         /// <returns>Async.</returns>
         public async Task Post([FromUri]Zone zone)
         {
-            await this.amplifier.SetZone(zone);
+            await this.amplifier.SetZone(zone, false);
         }
     }
 }

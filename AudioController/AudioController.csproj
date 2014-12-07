@@ -128,7 +128,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Controllers\AmplifierController.cs" />
-    <Compile Include="Controllers\SpotifyController.cs" />
     <Compile Include="Filters\NotImplExceptionFilterAttribute.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -143,8 +142,6 @@
     <Compile Include="MefMvcDependencyResolver.cs" />
     <Compile Include="MefNameValueCollectionExportProvider.cs" />
     <Compile Include="Models\AudioModel.cs" />
-    <Compile Include="Models\SpotifyLookupModel.cs" />
-    <Compile Include="Models\SpotifySearchModel.cs" />
     <Compile Include="Models\ZoneAndInputs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
@@ -187,11 +184,6 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Global.asax" />
-    <Content Include="Mocks\SpotifyLookup_MockArtist.txt" />
-    <Content Include="Mocks\SpotifyLookup_MockTrack.txt" />
-    <Content Include="Mocks\SpotifyLookup_MockAlbum.txt" />
-    <Content Include="Mocks\SpotifySearch_MockTracks.txt" />
-    <Content Include="Mocks\SpotifySearch_MockArtists.txt" />
     <Content Include="Scripts\amplifier.js" />
     <Content Include="Scripts\ac.checkbox.js" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
@@ -207,10 +199,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\spotify.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
-    <Content Include="Mocks\SpotifySearch_MockAlbums.txt" />
     <Content Include="Scripts\knockout-2.0.0.debug.js" />
     <Content Include="Scripts\knockout-2.0.0.js" />
     <Content Include="Scripts\ac.range.js" />
@@ -226,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Amplifier\" />
+    <Folder Include="Mocks\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

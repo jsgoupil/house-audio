@@ -23,8 +23,7 @@ namespace HouseAudio.AudioController
             bundles.Add(new ScriptBundle("~/bundles/amplifier").Include(
                         "~/Scripts/ac.checkbox.js",
                         "~/Scripts/ac.range.js",
-                        "~/Scripts/amplifier.js",
-                        "~/Scripts/spotify.js"));
+                        "~/Scripts/amplifier.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-*"));

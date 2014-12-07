@@ -27,11 +27,6 @@ namespace HouseAudio.AudioController
                 defaults: new { id = RouteParameter.Optional });
 
             routes.MapHttpRoute(
-                name: "SpotifyApi",
-                routeTemplate: "api/Spotify/{action}/{id}",
-                defaults: new { controller = "Spotify" });
-
-            routes.MapHttpRoute(
                 name: "ZoneApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional });

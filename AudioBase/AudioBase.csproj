@@ -44,14 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SpotifyLookup.cs" />
     <Compile Include="IAmplifier.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="SpotifySearch.cs" />
-    <Compile Include="SpotifyWebApi.cs" />
     <Compile Include="Zone.cs" />
   </ItemGroup>
   <ItemGroup>
