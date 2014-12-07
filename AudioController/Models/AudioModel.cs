@@ -15,11 +15,11 @@ namespace HouseAudio.AudioController.Models
         /// <summary>
         /// Zones.
         /// </summary>
-        public IEnumerable<Zone> Zones { get; set; }
+        public List<Zone> Zones { get; set; }
 
         /// <summary>
         /// Inputs.
         /// </summary>
-        public IEnumerable<Input> Inputs { get; set; }
+        public List<Input> Inputs { get; set; }
     }
 }

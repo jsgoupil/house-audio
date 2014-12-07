@@ -11,7 +11,7 @@
                     foreach (var input in Model.Inputs)
                     {
                         var selected = Model.Zone.Input != null && Model.Zone.Input.Equals(input);
-                        <option value="@input.Id" selected="@selected">@input.Id</option>
+                        <option value="@input.Id" selected="@selected">@input.FriendlyName</option>
                     }
                 }
             </select>

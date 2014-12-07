@@ -4,6 +4,8 @@
 
 namespace HouseAudio.AudioBase
 {
+    using System.ComponentModel.DataAnnotations.Schema;
+
     /// <summary>
     /// Class representing the zones.
     /// </summary>
@@ -13,6 +15,12 @@ namespace HouseAudio.AudioBase
         /// Zone id.
         /// </summary>
         public string Id { get; set; }
+
+        /// <summary>
+        /// Friendly name.
+        /// </summary>
+        [NotMapped]
+        public string FriendlyName { get; set; }
 
         /// <summary>
         /// Indicates if the zone is on.

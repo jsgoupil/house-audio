@@ -194,7 +194,7 @@ ul.tabs {
 ul.tabs li {
     float: left;
     height: 100%;
-    width: 50%;
+    width: 100%;
     line-height: 30px;
     background-color: #737373;
     text-align: center;

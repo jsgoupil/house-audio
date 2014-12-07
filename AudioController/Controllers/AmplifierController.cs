@@ -51,6 +51,9 @@ namespace HouseAudio.AudioController.Controllers
         public async Task Reset()
         {
             await this.amplifier.Reset();
+
+            // Let's rerun the zones to be the same on the controller
+            await this.amplifier.SetZones(this.amplifier.GetZones(), true);
         }
     }
 }

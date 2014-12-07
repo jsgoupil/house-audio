@@ -4,6 +4,8 @@
 
 namespace HouseAudio.AudioBase
 {
+    using System.ComponentModel.DataAnnotations.Schema;
+
     /// <summary>
     /// Class representing the inputs.
     /// </summary>
@@ -13,6 +15,12 @@ namespace HouseAudio.AudioBase
         /// Input id.
         /// </summary>
         public string Id { get; set; }
+
+        /// <summary>
+        /// Friendly name.
+        /// </summary>
+        [NotMapped]
+        public string FriendlyName { get; set; }
 
         /// <summary>
         /// Checks if two inputs are the same. We look only at the Id.

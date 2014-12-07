@@ -194,6 +194,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\amplifier.js" />
     <Content Include="Scripts\ac.checkbox.js" />
