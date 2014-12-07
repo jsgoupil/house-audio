@@ -78,7 +78,7 @@ namespace HouseAudio.Amplifier.AE6MC
                 this.serialPort.Write(data);
             }
 
-            return Task.Delay(100);
+            return Task.Delay(300);
         }
 
         /// <summary>

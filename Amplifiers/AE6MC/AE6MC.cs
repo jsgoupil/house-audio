@@ -71,7 +71,7 @@ namespace HouseAudio.Amplifier.AE6MC
                     await this.controlAmplifier.SetVolume(zone.Id, zone.Volume);
                     foundZone.Volume = zone.Volume;
                 }
-
+                /* NOT WORKING ON THE AMPLIFIER. COMMENTING NOW
                 if (force || zone.Bass != foundZone.Bass)
                 {
                     await this.controlAmplifier.SetBass(zone.Id, zone.Bass);
@@ -89,7 +89,7 @@ namespace HouseAudio.Amplifier.AE6MC
                     await this.controlAmplifier.SetMute(zone.Id, zone.Mute);
                     foundZone.Mute = zone.Mute;
                 }
-
+                */
                 if (force || (zone.Input != null && zone.Input.Id != null && !zone.Input.Equals(foundZone.Input)))
                 {
                     await this.controlAmplifier.SetLink(zone.Id, zone.Input.Id);
