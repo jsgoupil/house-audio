@@ -124,7 +124,7 @@ namespace HouseAudio.Amplifier.AE6MC
         /// <returns>Zone</returns>
         public Zone GetZone(Zone zone)
         {
-            return this.context.Zones.Where(z => z.Id == zone.Id).FirstOrDefault();
+            return GetZones().Where(z => z.Id == zone.Id).FirstOrDefault();
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace HouseAudio.Amplifier.AE6MC
         /// <returns>Zones</returns>
         public IEnumerable<Zone> GetZones()
         {
-            return this.context.Zones;
+            return this.context.Zones.AsNoTracking();
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace HouseAudio.Amplifier.AE6MC
         /// <returns>Inputs</returns>
         public IEnumerable<Input> GetInputs()
         {
-            return this.context.Inputs;
+            return this.context.Inputs.AsNoTracking();
         }
 
         /// <summary>
@@ -198,6 +198,8 @@ namespace HouseAudio.Amplifier.AE6MC
                 inputs.ForEach(i => this.context.Inputs.Add(i));
                 this.context.SaveChanges();
             }
+
+            this.context.SaveChanges();
         }
     }
 }

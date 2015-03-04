@@ -9,6 +9,7 @@ namespace HouseAudio.AudioController.Controllers
     using System.Web.Http;
     using HouseAudio.AudioBase;
     using HouseAudio.AudioController.Filters;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Zone API.
@@ -57,22 +58,55 @@ namespace HouseAudio.AudioController.Controllers
         /// Sets the same values to all zones.
         /// </summary>
         /// <param name="zone">Zone</param>
+        /// <param name="on">On</param>
+        /// <returns>Async.</returns>
+        [HttpGet]
+        public async Task OnOffAll([FromUri]Zone zone, bool on)
+        {
+            var newList = new List<Zone>();
+            var allZones = this.amplifier.GetZones();
+            foreach (var internalZone in allZones)
+            {
+                newList.Add(new Zone()
+                {
+                    Id = internalZone.Id,
+                    Bass = internalZone.Bass,
+                    Input = internalZone.Input,
+                    Mute = internalZone.Mute,
+                    On = zone.On,
+                    Treble = internalZone.Treble,
+                    Volume = internalZone.Volume
+                });
+            }
+
+            await this.amplifier.SetZones(newList, false);
+        }
+
+        /// <summary>
+        /// Sets the same values to all zones.
+        /// </summary>
+        /// <param name="zone">Zone</param>
         /// <returns>Async.</returns>
         [HttpGet]
         public async Task UpdateAll([FromUri]Zone zone)
         {
+            var newList = new List<Zone>();
             var allZones = this.amplifier.GetZones();
             foreach (var internalZone in allZones)
             {
-                internalZone.Bass = zone.Bass;
-                internalZone.Input = zone.Input;
-                internalZone.Mute = zone.Mute;
-                internalZone.On = zone.On;
-                internalZone.Treble = zone.Treble;
-                internalZone.Volume = zone.Volume;
+                newList.Add(new Zone()
+                {
+                    Id = internalZone.Id,
+                    Bass = zone.Bass,
+                    Input = zone.Input,
+                    Mute = zone.Mute,
+                    On = zone.On,
+                    Treble = zone.Treble,
+                    Volume = zone.Volume
+                });
             }
 
-            await this.amplifier.SetZones(allZones, false);
+            await this.amplifier.SetZones(newList, false);
         }
     }
 }
