@@ -52,5 +52,27 @@ namespace HouseAudio.AudioController.Controllers
         {
             await this.amplifier.SetZone(zone, false);
         }
+
+        /// <summary>
+        /// Sets the same values to all zones.
+        /// </summary>
+        /// <param name="zone">Zone</param>
+        /// <returns>Async.</returns>
+        [HttpGet]
+        public async Task UpdateAll([FromUri]Zone zone)
+        {
+            var allZones = this.amplifier.GetZones();
+            foreach (var internalZone in allZones)
+            {
+                internalZone.Bass = zone.Bass;
+                internalZone.Input = zone.Input;
+                internalZone.Mute = zone.Mute;
+                internalZone.On = zone.On;
+                internalZone.Treble = zone.Treble;
+                internalZone.Volume = zone.Volume;
+            }
+
+            await this.amplifier.SetZones(allZones, false);
+        }
     }
 }

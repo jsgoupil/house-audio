@@ -219,11 +219,3 @@ ul.tabs li a {
     color: #fff;
     text-decoration: none;
 }
-
-#main .sound {
-    display: none;
-}
-
-#main.showing-sound .sound {
-    display: block;
-}
